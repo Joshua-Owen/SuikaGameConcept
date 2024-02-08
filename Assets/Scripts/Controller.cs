@@ -27,11 +27,14 @@ public class Controller : MonoBehaviour
     public string newFruit = "n";
     public int tagNo;
     public Vector2 upgradePosition;
-
+    [SerializeField]
+    LimitController _limit;
 
     void Start()
     {
-        controller = GetComponent<Rigidbody2D>(); 
+        _limit = FindObjectOfType<LimitController>();
+
+        controller = GetComponent<Rigidbody2D>();
         StartCoroutine("SpawnFruitRoutine");
         fruitController = FindObjectOfType<FruitController>();
     }
@@ -41,7 +44,7 @@ public class Controller : MonoBehaviour
     {
         DropBoundries();
 
-       
+
         Movement();
 
         NextFruit();
@@ -70,27 +73,29 @@ public class Controller : MonoBehaviour
 
         while (enabled)
         {
+          
             print("f2");
- yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(1f);  
+            _limit.StartCoroutine("LimitCheckRoutine");
             Instantiate(_fruitObject[UnityEngine.Random.Range(0, 2)], transform.position, Quaternion.identity);
-           enabled = false;
+            enabled = false;
             StopCoroutine("SpawnFruitRoutine");
         }
-        
+
 
     }
     public void NextFruit(/*Vector2 posistion, String tag*/)
     {
-        if(newFruit == "y")
+        if (newFruit == "y")
         {
             newFruit = "n";
-             Debug.Log("1");
-            Instantiate(_fruitObject[tagNo +1],upgradePosition, Quaternion.identity);
+            Debug.Log("1");
+            Instantiate(_fruitObject[tagNo + 1], upgradePosition, Quaternion.identity);
 
 
         }
-           
-        
+
+
 
     }
 

@@ -14,7 +14,10 @@ public class FruitController : MonoBehaviour
     Rigidbody2D _fruitBody;
     private IEnumerator _dropFruitCoroutine;
     Controller _controller;
+
     
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +25,6 @@ public class FruitController : MonoBehaviour
         _fruitPosition = GetComponent<Transform>();
         _fruitBody = GetComponent<Rigidbody2D>();
         _controller = FindObjectOfType<Controller>();
-
         if (transform.position.y < 3.5f)
         {
             _fruitIsInstantiated = false;
@@ -50,9 +52,10 @@ public class FruitController : MonoBehaviour
             //_fruitBody.gravityScale = 1;        
             _fruitIsInstantiated = false;
 
-            Controller.enabled = true;
+            Controller.enabled = true; 
+           
             _controller.StartCoroutine("SpawnFruitRoutine");
-
+           
         }
 
     }
